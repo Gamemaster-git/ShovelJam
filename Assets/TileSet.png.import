@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgtidh5mdemca"
-path="res://.godot/imported/bathroomFloorWallTop.png-e2697a6e7a9242e63e57c6cde5286d79.ctex"
+uid="uid://dalddm4bhpmo3"
+path="res://.godot/imported/TileSet.png-246c80acb73860a6a627fa1c1b40d0d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/bathroomFloorWallTop.png"
-dest_files=["res://.godot/imported/bathroomFloorWallTop.png-e2697a6e7a9242e63e57c6cde5286d79.ctex"]
+source_file="res://Assets/TileSet.png"
+dest_files=["res://.godot/imported/TileSet.png-246c80acb73860a6a627fa1c1b40d0d0.ctex"]
 
 [params]
 
