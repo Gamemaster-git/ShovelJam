@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://duu1m28abqe87"]
+
+[ext_resource type="Script" uid="uid://dy6kvo48ty5ly" path="res://Objects/Enemies/Resources/Enemy.cs" id="1_aaocs"]
+[ext_resource type="Texture2D" uid="uid://xnm2y4rth8i5" path="res://icon.svg" id="1_kretf"]
+[ext_resource type="Script" uid="uid://b1pjefaek2sb1" path="res://Resources/VelocityHandler.cs" id="2_aaocs"]
+[ext_resource type="Script" uid="uid://b0qqsqfw7k6xf" path="res://Components/StateMachine/Resources/StateMachine.cs" id="3_1csvc"]
+[ext_resource type="PackedScene" uid="uid://csxy46s6qc05y" path="res://Components/NavigationHandler/NavigationHandler.tscn" id="4_57grr"]
+[ext_resource type="Script" uid="uid://b2v4rsbhm6agp" path="res://Objects/Enemies/Mirrors/CorruptedMirror/Resources/States/CorruptedWatching.cs" id="4_aaocs"]
+[ext_resource type="Script" uid="uid://ytkrhasqqg1o" path="res://Objects/Enemies/Mirrors/Resources/DetectionHandler.cs" id="5_w3pkl"]
+[ext_resource type="Script" uid="uid://388ki138atu2" path="res://Objects/Enemies/Mirrors/CorruptedMirror/Resources/States/CorruptedChasing.cs" id="6_1csvc"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tfd4u"]
+cull_mode = 1
+polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mywd8"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ypcyf"]
+radius = 16.0
+
+[node name="CorruptedMirror" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_aaocs")
+
+[node name="Character" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Character"]
+position = Vector2(-1.19209e-07, 2.38419e-07)
+scale = Vector2(0.0883789, 0.171875)
+texture = ExtResource("1_kretf")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Character"]
+position = Vector2(-1.19209e-07, 2.38419e-07)
+scale = Vector2(0.0883789, 0.171875)
+occluder = SubResource("OccluderPolygon2D_tfd4u")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mywd8")
+
+[node name="DetectionHandler" type="Area2D" parent="."]
+script = ExtResource("5_w3pkl")
+metadata/_custom_type_script = "uid://ytkrhasqqg1o"
+
+[node name="DetectionRange" type="CollisionShape2D" parent="DetectionHandler"]
+shape = SubResource("CircleShape2D_ypcyf")
+
+[node name="NavigationHandler" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("4_57grr")]
+parent = NodePath("..")
+
+[node name="VelocityHandler" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("2_aaocs")
+parent = NodePath("..")
+metadata/_custom_type_script = "uid://b1pjefaek2sb1"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState", "parent")]
+script = ExtResource("3_1csvc")
+initialState = NodePath("Watching")
+parent = NodePath("..")
+metadata/_custom_type_script = "uid://b0qqsqfw7k6xf"
+
+[node name="Watching" type="Node" parent="StateMachine" node_paths=PackedStringArray("detectionHandler")]
+script = ExtResource("4_aaocs")
+detectionHandler = NodePath("../../DetectionHandler")
+
+[node name="Chasing" type="Node" parent="StateMachine" node_paths=PackedStringArray("detectionHandler", "velocityHandler", "navigationHandler")]
+script = ExtResource("6_1csvc")
+detectionHandler = NodePath("../../DetectionHandler")
+velocityHandler = NodePath("../../VelocityHandler")
+navigationHandler = NodePath("../../NavigationHandler")
+speed = 20.0

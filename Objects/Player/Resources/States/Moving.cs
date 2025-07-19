@@ -7,12 +7,12 @@ public partial class Moving : State
     public float speed;
     [ExportGroup("Refrences")]
     [Export]
-    public VelocityHandler parentVelocityNode;
+    public VelocityHandler velocityHandler;
 
 
     public override void PhysicsUpdate(double delta)
     {
-        if (parentVelocityNode is null || parent is null)
+        if (velocityHandler is null)
         {
             return;
         }
@@ -25,7 +25,7 @@ public partial class Moving : State
             EmitSignal(SignalName.Transitioned, this, (StringName)"Idling");
         }
 
-        parentVelocityNode.SetVelocityX(inputDirection.X * speed);
-        parentVelocityNode.SetVelocityY(inputDirection.Y * speed);
+        velocityHandler.SetVelocityX(inputDirection.X * speed);
+        velocityHandler.SetVelocityY(inputDirection.Y * speed);
     }
 }

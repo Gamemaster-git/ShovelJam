@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=4 uid="uid://b7545hqbqlau5"]
+
+[ext_resource type="PackedScene" uid="uid://dgsewgiuoy7vh" path="res://Objects/Player/Player.tscn" id="2_wgnu6"]
+[ext_resource type="PackedScene" uid="uid://i56qvrrpoo34" path="res://Components/TileSets/MainLevel/TileMap.tscn" id="3_7lmy7"]
+[ext_resource type="PackedScene" uid="uid://b7mqk1srxblns" path="res://Objects/Enemies/Mirrors/PureMirror/PureMirror.tscn" id="3_kpjou"]
+[ext_resource type="PackedScene" uid="uid://duu1m28abqe87" path="res://Objects/Enemies/Mirrors/CorruptedMirror/CorruptedMirror.tscn" id="4_kpjou"]
+[ext_resource type="PackedScene" uid="uid://dcgptlqca7wn1" path="res://Objects/Enemies/GrandFatherClock/GrandFatherClock.tscn" id="5_pojpg"]
+
+[sub_resource type="Environment" id="Environment_wgnu6"]
+background_mode = 3
+background_color = Color(0.000968006, 0.0975807, 0.467144, 0.537255)
+ambient_light_source = 2
+ambient_light_color = Color(0, 0.0980392, 0.466667, 0.537255)
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_strength = 2.0
+glow_hdr_threshold = 0.5
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_saturation = 0.8
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wgnu6")
+
+[node name="TileMap" parent="." instance=ExtResource("3_7lmy7")]
+tile_map_data = PackedByteArray("AAD6/wIAAQAAABIAAAD7/wIAAQABABIAAAD7/wEAAQABABEAAAD6/wEAAQAAABEAAAD8/wEAAQACABEAAAD8/wIAAQACABIAAAD9/wEAAQAIAAkAAAD9/wIAAQAJAAkAAAD8/wMAAQAJAAkAAAD8/wQAAQAIAAkAAAD9/wMAAQAIAAkAAAD9/wQAAQAJAAkAAAD6/wMAAQAJAAkAAAD6/wQAAQAIAAkAAAD7/wMAAQAIAAkAAAD7/wQAAQAJAAkAAAD4/wMAAQAJAAkAAAD4/wQAAQAIAAkAAAD5/wMAAQAIAAkAAAD5/wQAAQAJAAkAAAD4/wEAAQAJAAkAAAD4/wIAAQAIAAkAAAD5/wEAAQAIAAkAAAD5/wIAAQAJAAkAAAD4/wAAAQAIAAkAAAD5////AQAIAAkAAAD5/wAAAQAJAAkAAAD6////AQAJAAkAAAD6/wAAAQAAABAAAAD7////AQAIAAkAAAD7/wAAAQABABAAAAD8////AQAJAAkAAAD8/wAAAQACABAAAAD9////AQAIAAkAAAD9/wAAAQAJAAkAAAD4//z/AQABAAgAAAD4//3/AQABAAkAAAD4//7/AQAJAAgAAAD6//z/AQABAAgAAAD6//3/AQABAAkAAAD6//7/AQAJAAgAAAD8//z/AQABAAgAAAD8//3/AQABAAkAAAD8//7/AQAJAAgAAAD5//z/AQABAAgAAAD5//3/AQABAAkAAAD4////AQAJAAkAAAD5//7/AQAJAAkAAAD7//z/AQABAAgAAAD7//3/AQABAAkAAAD7//7/AQAJAAkAAAD9//z/AQABAAgAAAD9//3/AQABAAkAAAD9//7/AQAJAAkAAAD3//z/AQAAAAgAAAD+/wUAAQACAAoAAAD+//z/AQACAAgAAAD3/wUAAQAAAAoAAAD4/wUAAQABAAoAAAD5/wUAAQABAAoAAAD6/wUAAQABAAoAAAD8/wUAAQABAAoAAAD9/wUAAQABAAoAAAD3//3/AQAAAAkAAAD3//7/AQAAAAkAAAD3////AQAAAAkAAAD3/wAAAQAAAAkAAAD3/wEAAQAAAAkAAAD3/wIAAQAAAAkAAAD3/wMAAQAAAAkAAAD3/wQAAQAAAAkAAAD+//3/AQACAAkAAAD+//7/AQACAAkAAAD+////AQACAAkAAAD+/wAAAQACAAkAAAD+/wEAAQACAAkAAAD+/wIAAQACAAkAAAD+/wMAAQACAAkAAAD+/wQAAQACAAkAAAD6/wYAAQAEAAgAAAD6/wcAAQAEAAkAAAD8/wYAAQAGAAgAAAD8/wcAAQAGAAkAAAD7/wYAAQAIAAkAAAD7/wUAAQAJAAkAAAD7/wcAAQAJAAkAAAA=")
+
+[node name="Player" parent="." instance=ExtResource("2_wgnu6")]
+position = Vector2(-155, -10)
+
+[node name="PureMirror" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_kpjou")]
+position = Vector2(-211, 119)
+player = NodePath("../Player")
+
+[node name="CorruptedMirror" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_kpjou")]
+position = Vector2(-82, 140)
+player = NodePath("../Player")
+
+[node name="GrandFatherClock" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_pojpg")]
+position = Vector2(-142, 237)
+player = NodePath("../Player")

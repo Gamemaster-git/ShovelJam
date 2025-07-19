@@ -23,6 +23,8 @@ public partial class VisionCone : PointLight2D
 
     public override void _Process(double delta)
     {
+        parent.LookAt(GetGlobalMousePosition());
+
         if (stateMachine.currentState.Name != "Moving")
         {
             LightHandler("Off", this, fadeSpeed);
@@ -34,8 +36,6 @@ public partial class VisionCone : PointLight2D
 
         LightHandler("Off", glow, fadeSpeed);
         LightHandler("On", this, fadeSpeed, visionConeEnergy);
-
-        parent.LookAt(GetGlobalMousePosition());
     }
 
 
