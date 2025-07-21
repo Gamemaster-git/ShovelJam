@@ -1,16 +1,108 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgsewgiuoy7vh"]
+[gd_scene load_steps=24 format=3 uid="uid://dgsewgiuoy7vh"]
 
-[ext_resource type="Texture2D" uid="uid://df0vifljj6xsj" path="res://Assets/doorKey.png" id="1_b872d"]
 [ext_resource type="Script" uid="uid://bx3xdohbrggou" path="res://Objects/Player/Resources/Player.cs" id="1_y01d7"]
+[ext_resource type="PackedScene" uid="uid://clfdlfi736y8y" path="res://Objects/Player/Components/UserInterface/UserInterface.tscn" id="2_ebgc0"]
 [ext_resource type="Script" uid="uid://b1pjefaek2sb1" path="res://Resources/VelocityHandler.cs" id="2_oansn"]
+[ext_resource type="Script" uid="uid://drli0y0rxl40n" path="res://Objects/Player/Resources/PlayerAnimator.cs" id="3_1ggq4"]
+[ext_resource type="Texture2D" uid="uid://v3bxl706gu1n" path="res://Objects/Player/Assets/PlayerSpriteSheet.png" id="3_ebgc0"]
 [ext_resource type="Script" uid="uid://cq5dh3pusj1w7" path="res://Objects/Player/Resources/States/Idling.cs" id="4_b872d"]
 [ext_resource type="Script" uid="uid://dm1idvpp8x8a2" path="res://Objects/Player/Resources/States/Moving.cs" id="5_1qpp8"]
+[ext_resource type="PackedScene" uid="uid://mklsgp7dkapa" path="res://Objects/Player/Components/InteractionHandler/InteractionHandler.tscn" id="5_7t0p5"]
 [ext_resource type="Script" uid="uid://b0qqsqfw7k6xf" path="res://Components/StateMachine/Resources/StateMachine.cs" id="5_nd6ml"]
 [ext_resource type="Texture2D" uid="uid://dk45wwhvbydsr" path="res://Objects/Player/Assets/VisionCone.png" id="6_1qpp8"]
 [ext_resource type="Script" uid="uid://c8l6404ck4mgf" path="res://Objects/Player/Resources/VisionCone.cs" id="7_nd6ml"]
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1qpp8"]
-polygon = PackedVector2Array(-3, -6, -4, -4, -4, -1, -3, 1, -2, 4, -2, 7, 1, 8, 3, 7, 3, 1, 3, -2, 3, -4, 2, -6, -1, -7)
+[sub_resource type="Animation" id="Animation_8ngx6"]
+resource_name = "MoveBackward"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_ufaat"]
+resource_name = "MoveForward"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(1, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_q10m3"]
+resource_name = "MoveLeft"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ebgc0"]
+resource_name = "MoveRight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1ggq4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q10m3"]
+_data = {
+&"MoveBackward": SubResource("Animation_8ngx6"),
+&"MoveForward": SubResource("Animation_ufaat"),
+&"MoveLeft": SubResource("Animation_q10m3"),
+&"MoveRight": SubResource("Animation_ebgc0"),
+&"RESET": SubResource("Animation_1ggq4")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1ggq4"]
+cull_mode = 2
+polygon = PackedVector2Array(-3, -14, -6.1, -8, -8, -8, -8, -5.6, -4, 3.3, -4, 7.2, 2.5, 4, 4.4, 4, 8, -5.9, 8, -12.4, 7, -13.7)
 
 [sub_resource type="Gradient" id="Gradient_y01d7"]
 offsets = PackedFloat32Array(0)
@@ -21,13 +113,13 @@ gradient = SubResource("Gradient_y01d7")
 width = 1
 height = 1
 
-[sub_resource type="Gradient" id="Gradient_nd6ml"]
+[sub_resource type="Gradient" id="Gradient_ebgc0"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.587719)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y01d7"]
-gradient = SubResource("Gradient_nd6ml")
+gradient = SubResource("Gradient_ebgc0")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -36,23 +128,33 @@ fill_from = Vector2(0.5, 0.5)
 radius = 3.0
 height = 8.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visionRay", "stateMachine")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("visionRay", "stateMachine", "userInterface")]
 script = ExtResource("1_y01d7")
 visionRay = NodePath("VisionRay")
 stateMachine = NodePath("StateMachine")
+userInterface = NodePath("UserInterface")
+
+[node name="UserInterface" parent="." instance=ExtResource("2_ebgc0")]
 
 [node name="Character" type="Node2D" parent="."]
 top_level = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Character" node_paths=PackedStringArray("velocityHandler")]
+libraries = {
+&"": SubResource("AnimationLibrary_q10m3")
+}
+script = ExtResource("3_1ggq4")
+velocityHandler = NodePath("../../VelocityHandler")
+
 [node name="Sprite" type="Sprite2D" parent="Character"]
 texture_filter = 1
-rotation = 1.5708
-texture = ExtResource("1_b872d")
+texture = ExtResource("3_ebgc0")
+hframes = 4
+vframes = 4
+frame = 15
 
 [node name="LightOccluder" type="LightOccluder2D" parent="Character"]
-rotation = 1.5708
-occluder = SubResource("OccluderPolygon2D_1qpp8")
-occluder_light_mask = 2
+occluder = SubResource("OccluderPolygon2D_1ggq4")
 
 [node name="CharacterRemoteTransform" type="RemoteTransform2D" parent="."]
 remote_path = NodePath("../Character")
@@ -85,7 +187,6 @@ position = Vector2(4.47034e-08, 1.49014e-08)
 rotation = 1.5708
 scale = Vector2(1.48885, 1.48885)
 color = Color(0.603922, 0.729412, 1, 0.65098)
-energy = 0.0
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
@@ -106,8 +207,7 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 2
 shadow_filter_smooth = 1.0
 texture = ExtResource("6_1qpp8")
-offset = Vector2(0, -96)
-texture_scale = 0.15
+offset = Vector2(0, -640)
 script = ExtResource("7_nd6ml")
 parent = NodePath("..")
 stateMachine = NodePath("../StateMachine")
@@ -127,9 +227,12 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1qpp8")
+
+[node name="InteractionHandler" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_7t0p5")]
+player = NodePath("..")
+interactionAreaRadius = 15.0
 
 [node name="VelocityHandler" type="Node" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("2_oansn")

@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvlf83ybfc0r0"]
+
+[ext_resource type="PackedScene" uid="uid://b1xrab5xcmao" path="res://Components/InteractionPopUp/InteractionPopUp.tscn" id="1_fhu3x"]
+[ext_resource type="Script" uid="uid://d1bqi5ryudqs4" path="res://Components/Interactables/Battery/Resources/Battery.cs" id="1_igcpl"]
+
+[sub_resource type="Gradient" id="Gradient_igcpl"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2r6x4"]
+gradient = SubResource("Gradient_igcpl")
+width = 8
+height = 8
+
+[sub_resource type="Gradient" id="Gradient_2r6x4"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.587719)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_igcpl"]
+gradient = SubResource("Gradient_2r6x4")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2r6x4"]
+radius = 0.01
+
+[node name="Battery" type="Area2D" node_paths=PackedStringArray("interactionAreaCollisionBox", "glow", "interactionPopUpControl")]
+script = ExtResource("1_igcpl")
+interactionAreaCollisionBox = NodePath("CollisionBox")
+glow = NodePath("Glow")
+interactionPopUpControl = NodePath("InteractionPopUp")
+interactionAreaRadius = 15.0
+batteryPickUpText = Dictionary[StringName, String]({
+&"BatteryFalse": "I.. need to get this to the basement...",
+&"BatteryTrue": "It.. its too heavy... I cant carry more than two..."
+})
+energyFadeTime = 1.0
+
+[node name="InteractionPopUp" parent="." instance=ExtResource("1_fhu3x")]
+offset_left = 6.0
+offset_top = -24.0
+offset_right = 6.0
+offset_bottom = -24.0
+scale = Vector2(0.25, 0.25)
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.713726, 0.443137, 0.67451)
+position = Vector2(4.47034e-08, 1.49014e-08)
+rotation = 1.5708
+scale = Vector2(1.48885, 1.48885)
+texture = SubResource("GradientTexture2D_2r6x4")
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(4.47034e-08, 1.49014e-08)
+rotation = 1.5708
+scale = Vector2(1.48885, 1.48885)
+color = Color(0, 0.712023, 0.44501, 0.67451)
+energy = 8.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+texture = SubResource("GradientTexture2D_igcpl")
+texture_scale = 0.75
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2r6x4")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="area_exited" from="." to="." method="OnAreaExited"]

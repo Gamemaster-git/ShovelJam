@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://duu1m28abqe87"]
 
 [ext_resource type="Script" uid="uid://dy6kvo48ty5ly" path="res://Objects/Enemies/Resources/Enemy.cs" id="1_aaocs"]
-[ext_resource type="Texture2D" uid="uid://xnm2y4rth8i5" path="res://icon.svg" id="1_kretf"]
+[ext_resource type="Texture2D" uid="uid://c6yy10mqj16av" path="res://Objects/Enemies/Mirrors/CorruptedMirror/Assets/Sprite.png" id="2_57grr"]
 [ext_resource type="Script" uid="uid://b1pjefaek2sb1" path="res://Resources/VelocityHandler.cs" id="2_aaocs"]
 [ext_resource type="Script" uid="uid://b0qqsqfw7k6xf" path="res://Components/StateMachine/Resources/StateMachine.cs" id="3_1csvc"]
 [ext_resource type="PackedScene" uid="uid://csxy46s6qc05y" path="res://Components/NavigationHandler/NavigationHandler.tscn" id="4_57grr"]
@@ -9,16 +9,14 @@
 [ext_resource type="Script" uid="uid://ytkrhasqqg1o" path="res://Objects/Enemies/Mirrors/Resources/DetectionHandler.cs" id="5_w3pkl"]
 [ext_resource type="Script" uid="uid://388ki138atu2" path="res://Objects/Enemies/Mirrors/CorruptedMirror/Resources/States/CorruptedChasing.cs" id="6_1csvc"]
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tfd4u"]
-cull_mode = 1
-polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_57grr"]
+polygon = PackedVector2Array(12, -17.4, -1.8, -18.5, -3, -18.5, -3, -17.5, -10.6, -17.5, -11.6, -15.5, -13, -15.5, -14, 10.5, -14, 16.9, -12.4, 18.5, 11.1, 18.5, 11.6, 17.5, 13, 17.5, 13, 11.5, 14, 11.5, 14, -15.1, 12, -16.1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mywd8"]
-radius = 6.0
-height = 24.0
+height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ypcyf"]
-radius = 16.0
+radius = 20.0
 
 [node name="CorruptedMirror" type="CharacterBody2D"]
 motion_mode = 1
@@ -29,13 +27,11 @@ script = ExtResource("1_aaocs")
 
 [node name="Sprite" type="Sprite2D" parent="Character"]
 position = Vector2(-1.19209e-07, 2.38419e-07)
-scale = Vector2(0.0883789, 0.171875)
-texture = ExtResource("1_kretf")
+texture = ExtResource("2_57grr")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Character"]
 position = Vector2(-1.19209e-07, 2.38419e-07)
-scale = Vector2(0.0883789, 0.171875)
-occluder = SubResource("OccluderPolygon2D_tfd4u")
+occluder = SubResource("OccluderPolygon2D_57grr")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_mywd8")

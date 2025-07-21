@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://clfdlfi736y8y"]
+
+[ext_resource type="Texture2D" uid="uid://bcmyh4t3kdw50" path="res://Objects/Player/Assets/TextBox.png" id="1_7w74n"]
+[ext_resource type="FontFile" uid="uid://c7im0sf1j1kc0" path="res://Fonts/Kenney Mini Square.ttf" id="2_y3nl1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pv2aj"]
+font = ExtResource("2_y3nl1")
+shadow_size = 2
+shadow_color = Color(0.465, 0.651, 0.93, 0.14902)
+
+[node name="UserInterface" type="CanvasLayer"]
+
+[node name="DialogueBox" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Texture" type="TextureRect" parent="DialogueBox"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.818
+anchor_top = 0.015
+anchor_right = 0.991
+anchor_bottom = 0.093
+offset_top = -200.0
+offset_right = 400.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7w74n")
+
+[node name="Label" type="Label" parent="DialogueBox"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.818
+anchor_top = 0.015
+anchor_right = 0.991
+anchor_bottom = 0.093
+offset_left = 10.0
+offset_top = -190.0
+offset_right = 390.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_pv2aj")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true

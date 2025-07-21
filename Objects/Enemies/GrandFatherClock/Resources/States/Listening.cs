@@ -7,6 +7,8 @@ public partial class Listening : State
     private Timer listeningTimer;
     [Export]
     private Area2D listenerArea;
+    [Export]
+    private CpuParticles2D listeningParticle;
     [ExportGroup("listeningTimerValues")]
     [Export]
     private float listeningTime;
@@ -54,13 +56,19 @@ public partial class Listening : State
 
     public void OnListeningTimerTimeout()
     {
+        Tween opacityTween = CreateTween();
+
         if (listening)
         {
+            opacityTween.TweenProperty(listeningParticle, "modulate:a", 0, Global.UserInterfaceAnimationSpeed);
+
             listeningTimer.WaitTime = listeningTime + reactionDelay;
             listening = false;
         }
         else
         {
+            opacityTween.TweenProperty(listeningParticle, "modulate:a", 1, Global.UserInterfaceAnimationSpeed);
+
             listeningTimer.WaitTime = waitingTime;
             listening = true;
         }

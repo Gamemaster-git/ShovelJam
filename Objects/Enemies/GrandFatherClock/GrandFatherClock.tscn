@@ -1,22 +1,81 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcgptlqca7wn1"]
+[gd_scene load_steps=18 format=3 uid="uid://dcgptlqca7wn1"]
 
 [ext_resource type="Script" uid="uid://dy6kvo48ty5ly" path="res://Objects/Enemies/Resources/Enemy.cs" id="1_70xsv"]
 [ext_resource type="Script" uid="uid://b1pjefaek2sb1" path="res://Resources/VelocityHandler.cs" id="1_v1hdy"]
 [ext_resource type="Script" uid="uid://b0qqsqfw7k6xf" path="res://Components/StateMachine/Resources/StateMachine.cs" id="2_70xsv"]
-[ext_resource type="Texture2D" uid="uid://xnm2y4rth8i5" path="res://icon.svg" id="2_pe5wf"]
+[ext_resource type="Texture2D" uid="uid://dm7nm77clihwl" path="res://Objects/Enemies/GrandFatherClock/Assets/GrandFatherClockSpriteSheet.png" id="2_hd4dj"]
+[ext_resource type="Script" uid="uid://bbhpjcg12th03" path="res://Objects/Enemies/GrandFatherClock/Resources/GrandFatherClockAnimator.cs" id="2_m34j4"]
 [ext_resource type="PackedScene" uid="uid://csxy46s6qc05y" path="res://Components/NavigationHandler/NavigationHandler.tscn" id="3_5u4t2"]
+[ext_resource type="Texture2D" uid="uid://potpw8kts25g" path="res://Objects/Enemies/GrandFatherClock/Assets/SoudWaveParticle.png" id="3_hd4dj"]
 [ext_resource type="Script" uid="uid://cj7qigabhigcm" path="res://Objects/Enemies/GrandFatherClock/Resources/States/Listening.cs" id="6_1kxm6"]
 [ext_resource type="Script" uid="uid://cmvbqhxxdyp5r" path="res://Objects/Enemies/GrandFatherClock/Resources/States/Chasing.cs" id="7_5u4t2"]
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pe5wf"]
-polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+[sub_resource type="Animation" id="Animation_o7bcu"]
+resource_name = "MoveLeft"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m34j4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hd4dj"]
+resource_name = "MoveRight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7bcu"]
+_data = {
+&"MoveLeft": SubResource("Animation_o7bcu"),
+&"MoveRight": SubResource("Animation_hd4dj"),
+&"RESET": SubResource("Animation_m34j4")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hd4dj"]
+polygon = PackedVector2Array(-7, -42.4, -7, -39.9, -14.7, -33, -17.3, -33, -14.7, -16, -14, -16, -14, -5.1, -17, -3.1, -17, 1.2, -13.7, 2.8, -21, 10.2, -21, 17, -0.4, 17, 0.700001, 11.4, 2.8, 12, 3.9, 12, 6, 15.5, 6, 17.6, 12.8, 19, 17.1, 19, 19.1, 16, 21, 16, 21, 8.1, 12.7, 1, 10, -16.3, 10, -28.7, 2, -38.7, 2, -40.6)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hd4dj"]
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ewyie"]
+radius = 72.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xl70b"]
 radius = 8.0
 height = 32.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ewyie"]
-radius = 72.0
 
 [node name="GrandFatherClock" type="CharacterBody2D"]
 motion_mode = 1
@@ -25,21 +84,49 @@ script = ExtResource("1_70xsv")
 
 [node name="Character" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Character"]
-scale = Vector2(0.125, 0.234375)
-texture = ExtResource("2_pe5wf")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Character" node_paths=PackedStringArray("velocityHandler")]
+libraries = {
+&"": SubResource("AnimationLibrary_o7bcu")
+}
+script = ExtResource("2_m34j4")
+velocityHandler = NodePath("../../VelocityHandler")
+
+[node name="Sprite" type="Sprite2D" parent="Character"]
+texture = ExtResource("2_hd4dj")
+hframes = 4
+vframes = 2
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Character"]
-scale = Vector2(0.125, 0.234375)
-occluder = SubResource("OccluderPolygon2D_pe5wf")
+occluder = SubResource("OccluderPolygon2D_hd4dj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_xl70b")
+[node name="SoundWaves" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_hd4dj")
+amount = 64
+texture = ExtResource("3_hd4dj")
+lifetime = 2.5
+speed_scale = 0.5
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 72.0
+direction = Vector2(0, 0)
+gravity = Vector2(0, -10)
+angular_velocity_min = 0.1
+angular_velocity_max = 0.1
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.1
+radial_accel_max = 0.1
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_max = 1.5
+hue_variation_max = 1.0
 
 [node name="ListenerArea" type="Area2D" parent="."]
 
 [node name="ListenerArea" type="CollisionShape2D" parent="ListenerArea"]
 shape = SubResource("CircleShape2D_ewyie")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xl70b")
 
 [node name="NavigationHandler" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("3_5u4t2")]
 parent = NodePath("..")
@@ -55,10 +142,11 @@ initialState = NodePath("Listening")
 parent = NodePath("..")
 metadata/_custom_type_script = "uid://b0qqsqfw7k6xf"
 
-[node name="Listening" type="Node" parent="StateMachine" node_paths=PackedStringArray("listeningTimer", "listenerArea")]
+[node name="Listening" type="Node" parent="StateMachine" node_paths=PackedStringArray("listeningTimer", "listenerArea", "listeningParticle")]
 script = ExtResource("6_1kxm6")
 listeningTimer = NodePath("ListeningTimer")
 listenerArea = NodePath("../../ListenerArea")
+listeningParticle = NodePath("../../SoundWaves")
 listeningTime = 1.0
 waitingTime = 2.0
 reactionDelay = 0.2

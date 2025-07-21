@@ -12,8 +12,6 @@ targetDesiredDistance = 10.0
 pathMaxDistance = 100.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
-debug_path_custom_color = Color(0.566287, 0.00375016, 0.937228, 1)
 
 [node name="Timer" type="Timer" parent="."]
 

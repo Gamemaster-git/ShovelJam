@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b7mqk1srxblns"]
 
-[ext_resource type="Texture2D" uid="uid://xnm2y4rth8i5" path="res://icon.svg" id="1_qgp6a"]
 [ext_resource type="Script" uid="uid://dy6kvo48ty5ly" path="res://Objects/Enemies/Resources/Enemy.cs" id="1_v8esy"]
+[ext_resource type="Texture2D" uid="uid://csf7k3nfbyky3" path="res://Objects/Enemies/Mirrors/PureMirror/Assets/Sprite.png" id="2_e1ui2"]
 [ext_resource type="Script" uid="uid://b1pjefaek2sb1" path="res://Resources/VelocityHandler.cs" id="2_qbulj"]
 [ext_resource type="Script" uid="uid://b0qqsqfw7k6xf" path="res://Components/StateMachine/Resources/StateMachine.cs" id="3_dtt3w"]
 [ext_resource type="Script" uid="uid://cdsw50lhby8ir" path="res://Objects/Enemies/Mirrors/PureMirror/Resources/States/PureWatching.cs" id="4_dc7w3"]
@@ -9,16 +9,14 @@
 [ext_resource type="Script" uid="uid://ytkrhasqqg1o" path="res://Objects/Enemies/Mirrors/Resources/DetectionHandler.cs" id="5_dc7w3"]
 [ext_resource type="Script" uid="uid://2axpfci5bvsl" path="res://Objects/Enemies/Mirrors/PureMirror/Resources/States/PureChasing.cs" id="6_v8esy"]
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qgp6a"]
-cull_mode = 1
-polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_e1ui2"]
+polygon = PackedVector2Array(12.5, 18.5, 12.5, -16.5, 2.5, -18.5, -4.5, -18.5, -12.5, -16.6, -12.5, 18.5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s66gb"]
-radius = 6.0
-height = 24.0
+height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dc7w3"]
-radius = 13.0
+radius = 20.0
 
 [node name="Mirror" type="CharacterBody2D"]
 motion_mode = 1
@@ -28,14 +26,10 @@ script = ExtResource("1_v8esy")
 [node name="Character" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="Character"]
-position = Vector2(-1.19209e-07, 2.38419e-07)
-scale = Vector2(0.0883789, 0.171875)
-texture = ExtResource("1_qgp6a")
+texture = ExtResource("2_e1ui2")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Character"]
-position = Vector2(-1.19209e-07, 2.38419e-07)
-scale = Vector2(0.0883789, 0.171875)
-occluder = SubResource("OccluderPolygon2D_qgp6a")
+occluder = SubResource("OccluderPolygon2D_e1ui2")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s66gb")

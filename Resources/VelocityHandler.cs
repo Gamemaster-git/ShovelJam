@@ -7,7 +7,7 @@ public partial class VelocityHandler : Node
     [Export]
     private CharacterBody2D parent;
 
-    private Vector2 velocity { get; set; }
+    public Vector2 velocity;
 
 
     public override void _PhysicsProcess(double delta)

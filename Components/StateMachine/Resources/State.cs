@@ -1,6 +1,5 @@
 using Godot;
 
-[GlobalClass]
 public partial class State : Node
 {
     [Signal]

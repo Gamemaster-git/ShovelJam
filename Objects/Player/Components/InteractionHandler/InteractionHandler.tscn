@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://mklsgp7dkapa"]
+
+[ext_resource type="Script" uid="uid://bwnnjq6xmm4to" path="res://Objects/Player/Components/InteractionHandler/Resources/InteractionHandler.cs" id="1_x3qdm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fv3vk"]
+radius = 0.01
+
+[node name="InteractionHandler" type="Node2D" node_paths=PackedStringArray("interactionAreaCollisionBox", "interactionArea")]
+script = ExtResource("1_x3qdm")
+interactionAreaCollisionBox = NodePath("InteractionArea/CollisionBox")
+interactionArea = NodePath("InteractionArea")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionBox" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_fv3vk")
+
+[connection signal="area_entered" from="InteractionArea" to="." method="OnInteractionAreaAreaEntered"]
+[connection signal="area_exited" from="InteractionArea" to="." method="OnInteractionAreaAreaExited"]
+[connection signal="body_entered" from="InteractionArea" to="." method="OnInteractionAreaBodyEntered"]

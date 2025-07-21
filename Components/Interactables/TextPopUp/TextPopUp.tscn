@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://bc32p2pyao5s"]
+
+[ext_resource type="Script" uid="uid://cacnlcgxjb5kt" path="res://Components/Interactables/TextPopUp/Resources/TextPopUp.cs" id="1_cw6av"]
+[ext_resource type="PackedScene" uid="uid://b1xrab5xcmao" path="res://Components/InteractionPopUp/InteractionPopUp.tscn" id="2_vapu6"]
+
+[sub_resource type="Gradient" id="Gradient_vapu6"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.587719)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vapu6"]
+gradient = SubResource("Gradient_vapu6")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pi8ub"]
+radius = 0.01
+
+[node name="TextPopUp" type="Area2D" node_paths=PackedStringArray("interactionAreaCollisionBox", "glow", "interactionPopUpControl")]
+script = ExtResource("1_cw6av")
+interactionAreaCollisionBox = NodePath("CollisionBox")
+glow = NodePath("Glow")
+interactionPopUpControl = NodePath("InteractionPopUp")
+interactionAreaRadius = 15.0
+energyFadeTime = 1.0
+
+[node name="InteractionPopUp" parent="." instance=ExtResource("2_vapu6")]
+offset_left = 7.0
+offset_top = -21.0
+offset_right = 7.0
+offset_bottom = -21.0
+scale = Vector2(0.25, 0.25)
+metadata/_edit_use_anchors_ = true
+
+[node name="Glow" type="PointLight2D" parent="."]
+position = Vector2(4.47034e-08, 1.49014e-08)
+rotation = 1.5708
+scale = Vector2(1.48885, 1.48885)
+color = Color(0.783, 0.38, 1, 0.67451)
+energy = 4.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 1
+texture = SubResource("GradientTexture2D_vapu6")
+texture_scale = 0.25
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pi8ub")
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="area_exited" from="." to="." method="OnAreaExited"]

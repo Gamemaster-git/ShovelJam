@@ -2,6 +2,12 @@ using Godot;
 
 public partial class VisionCone : PointLight2D
 {
+    enum LightSwitchState
+    {
+        ON,
+        OFF
+    }
+
     [ExportGroup("Refrences")]
     [Export]
     private CharacterBody2D parent;
@@ -27,19 +33,19 @@ public partial class VisionCone : PointLight2D
 
         if (stateMachine.currentState.Name != "Moving")
         {
-            LightHandler("Off", this, fadeSpeed);
-            LightHandler("On", glow, fadeSpeed, glowEnergy);
+            LightHandler(LightSwitchState.OFF, this, fadeSpeed);
+            LightHandler(LightSwitchState.ON, glow, fadeSpeed, glowEnergy);
 
             return;
         }
 
 
-        LightHandler("Off", glow, fadeSpeed);
-        LightHandler("On", this, fadeSpeed, visionConeEnergy);
+        LightHandler(LightSwitchState.OFF, glow, fadeSpeed);
+        LightHandler(LightSwitchState.ON, this, fadeSpeed, visionConeEnergy);
     }
 
 
-    private void LightHandler(StringName state, PointLight2D light, float time, float energy = 0f)
+    private void LightHandler(LightSwitchState state, PointLight2D light, float time, float energy = 0f)
     {
         Tween energyTween = CreateTween();
 
@@ -47,16 +53,15 @@ public partial class VisionCone : PointLight2D
 
         switch (state)
         {
-            case "On":
+            case LightSwitchState.ON:
                 energyTween.TweenProperty(light, "energy", energy, time);
                 break;
 
-            case "Off":
+            case LightSwitchState.OFF:
                 energyTween.TweenProperty(light, "energy", 0, time);
                 break;
 
             default:
-                GD.PrintErr("Invalid state property for LightHandler, must be either 'On' or 'Off'.");
                 break;
         }
     }

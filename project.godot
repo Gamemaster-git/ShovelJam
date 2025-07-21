@@ -15,6 +15,10 @@ run/main_scene="uid://b7545hqbqlau5"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Globals/Global.cs"
+
 [dotnet]
 
 project/assembly_name="ShovelJam"
@@ -25,18 +29,32 @@ folder_colors={
 "res://Assets/": "pink",
 "res://Builds/": "gray",
 "res://Components/": "red",
+"res://Components/GameManager/Resources/": "teal",
+"res://Components/Interactables/Battery/Resources/": "teal",
+"res://Components/Interactables/Generator/Resources/": "teal",
+"res://Components/Interactables/TextPopUp/Resources/": "teal",
+"res://Components/InteractionPopUp/Assets/": "purple",
 "res://Components/NavigationHandler/Resources/": "teal",
 "res://Components/StateMachine/Resources/": "teal",
+"res://Components/TileSets/MainLevel/Assets/": "purple",
+"res://Components/TileSets/MainLevel/Resources/": "teal",
+"res://Fonts/": "yellow",
+"res://Globals/": "green",
 "res://Levels/": "orange",
 "res://Objects/": "blue",
+"res://Objects/Enemies/GrandFatherClock/Assets/": "purple",
 "res://Objects/Enemies/GrandFatherClock/Resources/": "teal",
+"res://Objects/Enemies/Mirrors/CorruptedMirror/Assets/": "purple",
 "res://Objects/Enemies/Mirrors/CorruptedMirror/Resources/": "teal",
+"res://Objects/Enemies/Mirrors/PureMirror/Assets/": "purple",
 "res://Objects/Enemies/Mirrors/PureMirror/Resources/": "teal",
 "res://Objects/Enemies/Mirrors/Resources/": "teal",
 "res://Objects/Enemies/Resources/": "teal",
 "res://Objects/Player/": "blue",
 "res://Objects/Player/Assets/": "purple",
 "res://Objects/Player/Components/": "red",
+"res://Objects/Player/Components/InteractionHandler/Resources/": "teal",
+"res://Objects/Player/Components/UserInterface/Resources/": "teal",
 "res://Objects/Player/Resources/": "teal",
 "res://Resources/": "teal"
 }
@@ -67,3 +85,12 @@ MoveLeft={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+Interact={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
